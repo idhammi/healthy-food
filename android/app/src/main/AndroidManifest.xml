@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.healthy_food">
+    package="id.idham.healthy_food">
    <application
-        android:label="healthy_food"
+        android:label="Healthy Food"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

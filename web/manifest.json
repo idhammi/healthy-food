@@ -1,6 +1,6 @@
 {
-    "name": "healthy_food",
-    "short_name": "healthy_food",
+    "name": "Healthy Food",
+    "short_name": "Healthy Food",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
