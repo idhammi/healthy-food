@@ -8,6 +8,24 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      if (constraints.maxWidth > 800) {
+        return DetailWebPage(food: food);
+      } else {
+        return DetailMobilePage(food: food);
+      }
+    });
+  }
+}
+
+class DetailMobilePage extends StatelessWidget {
+  final Food food;
+
+  DetailMobilePage({required this.food});
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(food.name),
@@ -64,6 +82,118 @@ class DetailScreen extends StatelessWidget {
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class DetailWebPage extends StatelessWidget {
+  final Food food;
+
+  DetailWebPage({required this.food});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(food.name),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 16,
+          horizontal: 64,
+        ),
+        child: Center(
+          child: Container(
+            width: 1200,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 32),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Hero(
+                            tag: food.name,
+                            child: ClipRRect(
+                              child: Image.asset(food.image),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 32),
+                    Expanded(
+                      child: Card(
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 16),
+                                child: Text(food.description),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 16),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '${food.weight} g | ${food.calories} cal',
+                                      style: TextStyle(color: Colors.green),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 8),
+                                          child: StarRating(value: food.rating),
+                                        ),
+                                        Text(
+                                          food.rating.toString(),
+                                          style: TextStyle(color: Colors.green),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              PriceCounter(food: food),
+                              Container(
+                                margin: EdgeInsets.only(
+                                    left: 24, right: 24, bottom: 24, top: 48),
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 14),
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(24)),
+                                      )),
+                                  onPressed: () {},
+                                  child: Text('Add to Card'),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
